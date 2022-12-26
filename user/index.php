@@ -10,10 +10,10 @@ $d = mysqli_fetch_object($getMaxId);
 $generateId = 'A' . date('d') . date('m') . date('Y') . sprintf("%03s", $d->id + 1);
 if (isset($_POST['kirim'])) {
     if (Absen($_POST) > 0) {
-        echo '<script>alert("Absensi Berhasil")</script>';
+         $_SESSION['absen'] = 'Berhasil';
         echo '<script>window.location="berhasil.php?nama=' . $_SESSION['nama'] . '"</script>';
     } else {
-        echo "<script>alert('Absensi Gagal')</script>";
+       $_SESSION['absen'] = 'Gagal';
         echo mysqli_error($conn);
     }
 }
@@ -32,7 +32,7 @@ if (isset($_POST['kirim'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>ABSENSI | SMKN TARUNA</title>
+    <title>ABSENSI | SMK TARUNA</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -45,10 +45,15 @@ if (isset($_POST['kirim'])) {
 </head>
 
 <body id="page-top">
+    <!-- SWAL -->
+  <div class="info-data" data-infodata="<?php if (isset($_SESSION['info'])) {
+                                          echo $_SESSION['info'];
+                                        }
+                                        unset($_SESSION['info']); ?>"></div>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top">SMKN TARUNA</a>
+            <a class="navbar-brand" href="#page-top">SMK TARUNA</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -70,7 +75,7 @@ if (isset($_POST['kirim'])) {
             <!-- Masthead Avatar Image-->
             <img class="masthead-avatar mb-5" src="../img/undraw_online_test_re_kyfx.svg" alt="..." />
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">SMK NEGERI TARUNA</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">SMK TARUNA</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -273,7 +278,7 @@ if (isset($_POST['kirim'])) {
     </footer>
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
-        <div class="container"><small>Copyright &copy; SMKN TARUNA 2022</small></div>
+        <div class="container"><small>Copyright &copy; SMK TARUNA 2022</small></div>
     </div>
     <!-- Portfolio Modals-->
     <!-- Portfolio Modal 1-->
@@ -317,9 +322,11 @@ if (isset($_POST['kirim'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">X</span>
-                    </button>
+                    <div class="border-0">
+                   <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">
+           
+          </button>
+          </div>
                 </div>
                 <div class="modal-body">Apakah Anda Yakin Ingin Keluar?</div>
                 <div class="modal-footer">
@@ -504,6 +511,34 @@ if (isset($_POST['kirim'])) {
             </div>
         </div>
     </div>
+    <!-- sweet alert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    const notifikasi = $('.info-data').data('infodata');
+
+    if (notifikasi == "Login Berhasil") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses',
+        text: notifikasi,
+      })
+    } else if (notifikasi == "Login Gagal") {
+      Swal.fire({
+        icon: 'error',
+        title: 'GAGAL',
+        text: 'Username atau Password Salah!',
+      })
+    } else if (notifikasi == "Kosong") {
+
+    }
+  </script>
     <!-- Bootstrap core JS-->
     <script src="../admin/vendor/jquery/jquery.min.js"></script>
     <script src="../admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
