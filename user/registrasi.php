@@ -12,10 +12,10 @@ $d = mysqli_fetch_object($getMaxId);
 $generatePass = 'SMKN4' . date('Y') . sprintf("%03s", $d->pass + 1);
 if (isset($_POST['submit'])) {
   if (tambahSiswa($_POST) > 0) {
-    echo '<script>alert("Registrasi Berhasil")</script>';
+    $_SESSION['register'] = 'Berhasil';
     echo '<script>window.location = "../user/berhasil-registrasi.php?password=' . $generatePass . '"</script>';
   } else {
-    echo "<script>alert('Registrasi Gagal')</script>";
+    $_SESSION['register'] = 'Gagal';
     echo mysqli_error($conn);
   }
 }
@@ -31,7 +31,7 @@ $select = query("SELECT * FROM tb_kelas ORDER BY nama_kelas ASC");
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Dashboard - Administator</title>
+  <title>Registrasi Akun</title>
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -40,11 +40,20 @@ $select = query("SELECT * FROM tb_kelas ORDER BY nama_kelas ASC");
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 </head>
-
+<style>
+    body {
+    background-color: #f8f8f8;
+  }
+</style>
 <body class="sb-nav-fixed">
+    <!-- SWAL -->
+  <div class="info-data" data-infodata="<?php if (isset($_SESSION['register'])) {
+                                          echo $_SESSION['register'];
+                                        }
+                                        ?>"></div>
   <div id="layoutSidenav_content">
     <main>
-      <div class="container-fluid px-4">
+      <div class="container px-3">
         <h3 class="alert alert-primary text-center mt-3">FORM REGISTRASI ABSENSI SISWA</h3>
         <div class="row">
           <div class="col-md-12 ">
@@ -175,6 +184,34 @@ $select = query("SELECT * FROM tb_kelas ORDER BY nama_kelas ASC");
       </div>
     </div>
   </div>
+  <!-- sweet alert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    const notifikasi = $('.info-data').data('infodata');
+
+    if (notifikasi == "Berhasil") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses',
+        text: 'Registrasi Berhasil',
+      })
+    } else if (notifikasi == "Gagal") {
+      Swal.fire({
+        icon: 'error',
+        title: 'GAGAL',
+        text: 'Registrasi Gagal!',
+      })
+    } else if (notifikasi == "Kosong") {
+
+    }
+  </script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
