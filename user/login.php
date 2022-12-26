@@ -40,10 +40,10 @@ if (isset($_POST["login"])) {
     //$_COOKEI sendiri untuk menyimpan data user untuk beberapa waktu
     //ada waktu kadarulasa
 
-    echo '<script>alert("Login Berhasil")</script>';
+     $_SESSION['info'] = 'Login Berhasil';
     echo '<script>window.location="index.php"</script>';
   } else {
-    echo '<script>alert("Gagal, nisn atau password salah")</script>';
+        $_SESSION['info'] = 'Login Gagal';
   }
 }
 //untuk password_verify,password_hash
@@ -64,6 +64,11 @@ if (isset($_POST["login"])) {
 </head>
 
 <body>
+    <!-- SWAL -->
+  <div class="info-data" data-infodata="<?php if (isset($_SESSION['info'])) {
+                                          echo $_SESSION['info'];
+                                        }
+                                        ?>"></div>
   <div class="overlay"></div>
   <form action="" method="POST" class="box">
     <div class="header">
@@ -77,6 +82,34 @@ if (isset($_POST["login"])) {
       <a href="registrasi.php">Belum Register?</a>
     </div>
   </form>
+  <!-- sweet alert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    const notifikasi = $('.info-data').data('infodata');
+
+    if (notifikasi == "Login Berhasil") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses',
+        text: notifikasi,
+      })
+    } else if (notifikasi == "Login Gagal") {
+      Swal.fire({
+        icon: 'error',
+        title: 'GAGAL',
+        text: 'Username atau Password Salah!',
+      })
+    } else if (notifikasi == "Kosong") {
+
+    }
+  </script>
 </body>
 
 </html>
