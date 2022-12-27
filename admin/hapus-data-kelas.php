@@ -12,9 +12,9 @@ if ($id == '') {
   echo '<script>window.location="../data-kelas.php"</script>';
 }
 if (hapusKelas($id) > 0) {
-  echo "<script>alert('Hapus data berhasil')</script>";
+  $_SESSION['info'] = 'Dihapus';
   echo "<script>window.location='data-kelas.php'</script>";
 } else {
-  echo "<script>alert('Hapus data gagal')</script>";
+ $_SESSION['info'] = 'Gagal Dihapus';
   echo mysqli_error($conn);
 }
