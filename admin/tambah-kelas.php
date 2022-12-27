@@ -16,10 +16,11 @@ if ($_SESSION["level"] != 'Admin') {
 }
 if (isset($_POST['submit'])) {
   if (tambahKelas($_POST) > 0) {
-    echo '<script>alert("Tambah Data Kelas Berhasil")</script>';
+    $_SESSION['info'] = 'Ditambahkan';
     echo '<script>window.location = "data-kelas.php"</script>';
   } else {
-    echo "<script>alert('Tambah Data Kelas Gagal')</script>";
+   $_SESSION['info'] = 'Gagal Ditambahkan';
+    echo '<script>window.location = "data-kelas.php"</script>';
     echo mysqli_error($conn);
   }
 }
