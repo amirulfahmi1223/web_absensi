@@ -16,10 +16,11 @@ if ($_SESSION["level"] != 'Admin') {
 }
 if (isset($_POST['submit'])) {
   if (tambahOfficer($_POST) > 0) {
-    echo '<script>alert("Tambah Data Officer Berhasil")</script>';
+   $_SESSION['info'] = 'Ditambahkan';
     echo '<script>window.location = "data-officer.php"</script>';
   } else {
-    echo "<script>alert('Tambah Data Officer Gagal')</script>";
+   $_SESSION['info'] = 'Gagal Ditambahkan';
+    echo '<script>window.location = "data-officer.php"</script>';
     echo mysqli_error($conn);
   }
 }
@@ -193,7 +194,7 @@ if (isset($_POST['submit'])) {
                       <select name="level" id="" class="form-control" id="validationCustom02" required>
                         <option value="">-- PILIH ADMIN --</option>
                         <option value="Admin">Admin</option>
-                        <option value="Petugas">Petugas</option>
+                        <option value="Guru">Guru</option>
                       </select>
                     </div>
                     <div class="form-group mt-4">
