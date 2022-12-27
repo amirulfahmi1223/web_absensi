@@ -13,7 +13,7 @@ if (isset($_SESSION["masuk"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>ABSENSI | SMKN TARUNA</title>
+  <title>Registrasi Akun</title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
@@ -26,6 +26,10 @@ if (isset($_SESSION["masuk"])) {
 </head>
 
 <body id="page-top" style="background-color:#1ABC9C;">
+     <div class="info-data" data-infodata="<?php if (isset($_SESSION['register'])) {
+                                          echo $_SESSION['register'];
+                                        }
+                                         unset($_SESSION['register']);?>"></div>
   <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
       <!-- Masthead Avatar Image-->
@@ -43,7 +47,34 @@ if (isset($_SESSION["masuk"])) {
       </div>
     </div>
   </header>
+ <!-- sweet alert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    const notifikasi = $('.info-data').data('infodata');
+
+    if (notifikasi == "Berhasil") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses',
+        text: 'Registrasi Berhasil',
+      })
+    } else if (notifikasi == "Gagal") {
+      Swal.fire({
+        icon: 'error',
+        title: 'GAGAL',
+        text: 'Registrasi Gagal!',
+      })
+    } else if (notifikasi == "Kosong") {
+
+    }
+  </script>
   <!-- Bootstrap core JS-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Core theme JS-->
