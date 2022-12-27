@@ -16,10 +16,11 @@ if ($_SESSION["level"] != 'Admin') {
 }
 if (isset($_POST['submit'])) {
   if (tambahSiswa($_POST) > 0) {
-    $_SESSION['info'] = 'Disimpan';
+    $_SESSION['info'] = 'Ditambahkan';
     echo '<script>window.location = "data-siswa.php"</script>';
   } else {
-    $_SESSION['info'] = 'Gagal Disimpan';
+    $_SESSION['info'] = 'Gagal Ditambahkan';
+    echo '<script>window.location = "data-siswa.php"</script>';
     echo mysqli_error($conn);
   }
 }
