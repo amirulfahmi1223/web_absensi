@@ -10,15 +10,8 @@ if (!isset($_SESSION["login"])) {
   echo '<script>window.location="../login.php"</script>';
 }
 //PENGGUNAAN INNER JOIN YANG BENAR BEGITU JUGA LEFT AND RIGHT
-if ((isset($_POST['Bcari'])) and $_POST['Pkeyword'] <> "") {
-  $keyword = $_POST['Pkeyword'];
-  $id = $_GET['id_kelas'];
-  $select = mysqli_query($conn, "SELECT * FROM tb_absen INNER JOIN tb_kelas ON tb_absen.id_kelas = tb_kelas.id_kelas WHERE 
-  tb_absen.tgl_absen LIKE '%$keyword%' AND tb_absen.id_kelas = $id ORDER BY tgl_absen DESC");
-} else {
   $where = "'" . $_GET['id_kelas'] . "'";
   $select = mysqli_query($conn, "SELECT * FROM tb_absen INNER JOIN tb_kelas ON tb_absen.id_kelas = tb_kelas.id_kelas WHERE tb_absen.id_kelas = $where ORDER BY tgl_absen DESC ");
-}
 $kelas = query("SELECT * FROM tb_kelas WHERE id_kelas = '" . $_GET['id_kelas'] . "'")[0];
 ?>
 <!DOCTYPE html>
@@ -147,72 +140,75 @@ $kelas = query("SELECT * FROM tb_kelas WHERE id_kelas = '" . $_GET['id_kelas'] .
 
       </nav>
     </div>
-    <div id="layoutSidenav_content">
-      <!-- Begin Page Content -->
-      <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <h1 class="h3 mb-3 text-gray-800 mt-4">ABSENSI KELAS <?= $kelas['nama_kelas']; ?></h1>
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <a href="tambah-produk.php" class="btn btn-primary"><i class="fa-solid fa-print me-2"></i></i>PRINT</a>
-            <!-- Topbar Search -->
-            <form method="POST" class="float-right d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-              <div class="input-group">
-                <input type="date" name="Pkeyword" class="form-control small" aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                  <button name="Bcari" class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+   <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <h1 class="h3 mb-3 text-gray-800 mt-4">ABSENSI KELAS <?= $kelas['nama_kelas']; ?></h1>
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+              Data Absensi
+            </div>
+            <div class="card-body">
+              <table id="datatablesSimple" class="text-center">
                 <thead>
                   <tr>
-                    <th scope="col">No.Absensi</th>
-                    <th scope="col">Nisn</th>
-                    <th scope="col">Nama Lengkap</th>
-                    <th scope="col">Kelas</th>
-                    <th scope="col">Absen</th>
-                    <th scope="col">Jenis Kelamin</th>
-                    <th scope="col">Tgl Absen</th>
+                    <th class="text-center">No.Absensi</th>
+                    <th class="text-center">Nisn</th>
+                    <th class="text-center"">Nama Lengkap</th>
+                    <th class=" text-center">Kelas</th>
+                    <th class="text-center">Absen</th>
+                    <th class="text-center">Jenis Kelamin</th>
+                    <th class="text-center">Tgl Absen</th>
                   </tr>
                 </thead>
+                <tfoot>
+                  <tr>
+                    <th class="text-center">No.Absensi</th>
+                    <th class="text-center">Nisn</th>
+                    <th class="text-center"">Nama Lengkap</th>
+                    <th class=" text-center">Kelas</th>
+                    <th class="text-center">Absen</th>
+                    <th class="text-center">Jenis Kelamin</th>
+                    <th class="text-center">Tgl Absen</th>
+                  </tr>
+                </tfoot>
                 <tbody>
-                  <?php if (mysqli_num_rows($select) > 0) : ?>
-                    <?php while ($row = mysqli_fetch_object($select)) { ?>
+                  <?php while ($row = mysqli_fetch_object($select)) { ?>
 
-                      <tr>
-                        <td><?= $row->id_absen; ?></td>
-                        <td><?= $row->nisn; ?></td>
-                        <td><?= $row->nama_siswa; ?></td>
-                        <td><?= $row->nama_kelas; ?></td>
-                        <td><?= $row->absen; ?></td>
-                        <td><?= $row->jk; ?></td>
-                        <td><?= $row->tgl_absen; ?></td>
-                      </tr>
-                    <?php }; ?>
-                  <?php else : ?>
-                    <!-- tidak ada data yang dicari -->
                     <tr>
-                      <td colspan="7">
-                        <p>Data Tidak Ada</p>
-                      </td>
+                      <td><?= $row->id_absen; ?></td>
+                      <td><?= $row->nisn; ?></td>
+                      <td><?= $row->nama_siswa; ?></td>
+                      <td><?= $row->nama_kelas; ?></td>
+                      <td><?= $row->absen; ?></td>
+                      <td><?= $row->jk; ?></td>
+                      <td><?= $row->tgl_absen; ?></td>
                     </tr>
-                  <?php endif; ?>
+                  <?php }; ?>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <!-- /.container-fluid -->
-      <!-- Logout Modal-->
+     
+      <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; SMK TARUNA 2022</div>
+            <div>
+              <a href="#">Privacy Policy</a>
+              &middot;
+              <a href="#">Terms &amp; Conditions</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+   <!-- Logout Modal-->
       <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -230,20 +226,6 @@ $kelas = query("SELECT * FROM tb_kelas WHERE id_kelas = '" . $_GET['id_kelas'] .
           </div>
         </div>
       </div>
-      <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-          <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; SMK TARUNA 2022</div>
-            <div>
-              <a href="#">Privacy Policy</a>
-              &middot;
-              <a href="#">Terms &amp; Conditions</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
