@@ -36,6 +36,11 @@ $jumlah3 = mysqli_num_rows($kelas);
 </head>
 
 <body class="sb-nav-fixed">
+    <!-- SWAL -->
+  <div class="info-data" data-infodata="<?php if (isset($_SESSION['info'])) {
+                                          echo $_SESSION['info'];
+                                        }
+                                        unset($_SESSION['info']); ?>"></div>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-black">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="../user/index.php">Administator Sekolah</a>
@@ -149,7 +154,7 @@ $jumlah3 = mysqli_num_rows($kelas);
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 mb-4">
+                         <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -168,6 +173,7 @@ $jumlah3 = mysqli_num_rows($kelas);
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
@@ -750,6 +756,34 @@ $jumlah3 = mysqli_num_rows($kelas);
             </footer>
         </div>
     </div>
+    <!-- sweet alert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.15.2/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script>
+    const notifikasi = $('.info-data').data('infodata');
+
+    if (notifikasi == "Login Berhasil") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sukses',
+        text: notifikasi,
+      })
+    } else if (notifikasi == "Login Gagal") {
+      Swal.fire({
+        icon: 'error',
+        title: 'GAGAL',
+        text: 'Username atau Password Salah!',
+      })
+    } else if (notifikasi == "Kosong") {
+
+    }
+  </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -762,4 +796,3 @@ $jumlah3 = mysqli_num_rows($kelas);
 </body>
 
 </html>
-    
