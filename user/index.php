@@ -269,7 +269,7 @@ if (isset($_POST['kirim'])) {
                     <h4 class="text-uppercase mb-4">About School</h4>
                     <p class="lead mb-0">
                         Freelance is a free to use, theme created by
-                        <a href="https://amirulfahmi965.000webhostapp.com/Portofolio.html">M.Amirul Fahmi</a>
+                        <a href="https://fahmi965.000webhostapp.com/Portofolio.html">M.Amirul Fahmi</a>
                         .
                     </p>
                 </div>
