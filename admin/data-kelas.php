@@ -36,6 +36,11 @@ $select = query("SELECT * FROM tb_kelas ORDER BY nama_kelas ASC");
 </head>
 
 <body class="sb-nav-fixed">
+     <!-- SWAL -->
+  <div class="info-data" data-infodata="<?php if (isset($_SESSION['info'])) {
+                                          echo $_SESSION['info'];
+                                        }
+                                        unset($_SESSION['info']); ?>"></div>
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-black">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="../user/index.php">Administator Sekolah</a>
@@ -224,6 +229,16 @@ $select = query("SELECT * FROM tb_kelas ORDER BY nama_kelas ASC");
       </div>
     </div>
   </div>
+  <!-- sweetalert -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- Swal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+  <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+  <script src="js/js-ku.js"></script>
+  <!-- akhir -->
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
